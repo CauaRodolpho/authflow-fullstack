@@ -1,0 +1,20 @@
+{
+  "name": "authflow-fullstack",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Aplicacao full stack com React, Express, Prisma e MongoDB.",
+  "scripts": {
+    "install:all": "npm install --prefix Backend && npm install --prefix Front-end",
+    "dev": "concurrently --names BACKEND,FRONTEND --prefix-colors blue,magenta \"npm run dev --prefix Backend\" \"npm run dev --prefix Front-end\"",
+    "dev:backend": "npm run dev --prefix Backend",
+    "dev:frontend": "npm run dev --prefix Front-end",
+    "build": "npm run build --prefix Front-end",
+    "lint": "npm run lint --prefix Front-end",
+    "prisma:generate": "npm run prisma:generate --prefix Backend",
+    "prisma:push": "npm run prisma:push --prefix Backend",
+    "prisma:studio": "npm run prisma:studio --prefix Backend"
+  },
+  "devDependencies": {
+    "concurrently": "^9.2.1"
+  }
+}

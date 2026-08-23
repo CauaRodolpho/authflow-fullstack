@@ -1,0 +1,11 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base { * { box-sizing: border-box; } html { color-scheme: dark; background: #050914; } body { margin: 0; min-width: 320px; min-height: 100vh; background: #050914; } button, input { font: inherit; } }
+@layer components { .field-label { @apply mb-2 block text-xs font-medium uppercase tracking-[.14em] text-slate-400; } .field-shell { @apply flex items-center gap-3 rounded-xl border border-white/10 bg-white/[.035] px-4 transition focus-within:border-cyan-300/50 focus-within:bg-cyan-300/[.04]; } .field-input { @apply h-12 min-w-0 flex-1 bg-transparent text-sm text-white outline-none placeholder:text-slate-600; } }
+.cyber-grid { background-image: linear-gradient(rgba(56,189,248,.035) 1px, transparent 1px), linear-gradient(90deg, rgba(56,189,248,.035) 1px, transparent 1px); background-size: 42px 42px; mask-image: linear-gradient(to bottom, transparent, black 22%, black 78%, transparent); }
+.loader { width: 28px; height: 28px; border: 2px solid rgba(86,204,242,.18); border-top-color: #56ccf2; border-radius: 999px; animation: spin .8s linear infinite; }
+.loader-small { width: 18px; height: 18px; }
+@keyframes spin { to { transform: rotate(360deg); } }
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; } }
