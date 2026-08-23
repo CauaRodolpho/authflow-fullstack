@@ -1,159 +1,358 @@
-# AuthFlow Fullstack
+# AuthFlow — Autenticação e Gestão de Usuários
 
-Projeto demonstrativo Full Stack para cadastro e gerenciamento de usuarios ficticios. A aplicacao integra um front-end React com uma API Express, Prisma e MongoDB.
+![Status](https://img.shields.io/badge/status-concluído-22c55e)
+![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)
+![Node.js](https://img.shields.io/badge/Node.js-Express-339933?logo=node.js&logoColor=white)
+![MongoDB](https://img.shields.io/badge/MongoDB-Prisma-47A248?logo=mongodb&logoColor=white)
+![License](https://img.shields.io/badge/license-ISC-blue)
 
-> Todos os dados utilizados neste projeto devem ser ficticios e destinados somente a estudo e demonstracao.
+Aplicação Full Stack para autenticação e gerenciamento de usuários fictícios. O projeto combina uma interface cyber inspirada em ambientes virtuais com uma API REST protegida, persistência de dados e um painel CRUD completo.
 
-## Tecnologias
+> Projeto educacional desenvolvido para estudo e portfólio. Todos os dados utilizados na demonstração devem ser fictícios.
 
-- React e Vite
-- TypeScript, Tailwind CSS e estrutura shadcn
-- Spline 3D, Framer Motion e Lucide Icons
-- Axios
-- Node.js e Express
-- Prisma ORM
-- MongoDB
-- Zod
-- JWT e bcrypt
+## Demonstração
+
+A aplicação oferece duas formas de acesso:
+
+- **Criar conta:** registra uma conta com senha protegida.
+- **Acessar demonstração:** abre uma sessão temporária sem necessidade de cadastro.
+
+Depois do acesso, o usuário encontra um painel para cadastrar, pesquisar, editar e excluir registros fictícios.
 
 ## Funcionalidades
 
-- Login, criacao de conta e acesso demonstrativo sem cadastro
-- Senhas protegidas com hash bcrypt e sessao JWT de 2 horas
-- Cadastro, listagem, pesquisa, edicao e exclusao de usuarios ficticios
-- Rotas do CRUD protegidas e encerramento automatico de sessao expirada
-- Confirmacao personalizada de exclusao e mensagens de sucesso ou erro
-- Interface responsiva com Spline 3D, grade interativa e movimento reduzido
+### Autenticação
 
-## Estrutura
+- Criação de conta
+- Login com e-mail e senha
+- Acesso demonstrativo sem cadastro
+- Senhas protegidas com `bcrypt`
+- Autenticação utilizando JWT
+- Sessão com duração de 2 horas
+- Encerramento automático de sessão expirada
+- Logout seguro
+- Mensagens de erro e sucesso
 
-```text
-authflow-fullstack/
-|-- Front-end/
-|-- Backend/
-|-- .gitignore
-`-- README.md
+### Gerenciamento de usuários
+
+- Cadastro de usuários
+- Listagem dos registros
+- Pesquisa por nome, e-mail ou idade
+- Edição de informações
+- Exclusão com confirmação personalizada
+- Validação dos dados no front-end e no back-end
+- Indicadores com total de usuários e média de idade
+- Estados de carregamento e lista vazia
+
+### Interface
+
+- Design cyber inspirado em ambientes virtuais
+- Cena 3D interativa com Spline
+- Grade de fundo com interação suave pelo mouse
+- Animações com Framer Motion
+- Layout responsivo
+- Interface adaptada para dispositivos móveis
+- Suporte a `prefers-reduced-motion`
+- Ícones com Lucide React
+
+## Tecnologias
+
+### Front-end
+
+- React 19
+- TypeScript
+- Vite
+- Tailwind CSS
+- Framer Motion
+- Spline 3D
+- Axios
+- Lucide React
+- Estrutura de componentes inspirada em shadcn/ui
+
+### Back-end
+
+- Node.js
+- Express
+- Prisma ORM
+- MongoDB
+- Zod
+- JSON Web Token
+- bcrypt
+
+## Arquitetura
+
+```mermaid
+flowchart LR
+    A[React + TypeScript] -->|Axios| B[API Express]
+    B -->|Prisma ORM| C[(MongoDB)]
+    B --> D[JWT]
+    B --> E[bcrypt]
 ```
 
 O navegador nunca acessa o banco diretamente:
 
 ```text
-Front-end -> API Express -> Prisma -> MongoDB
+Front-end → API Express → Prisma → MongoDB
 ```
 
-## Configuracao
+## Estrutura do projeto
 
-### Instalacao completa pela raiz
+```text
+authflow-fullstack/
+├── Backend/
+│   ├── prisma/
+│   │   └── schema.prisma
+│   ├── src/
+│   │   ├── lib/
+│   │   ├── middlewares/
+│   │   ├── routes/
+│   │   ├── schemas/
+│   │   ├── app.js
+│   │   └── server.js
+│   ├── .env.example
+│   └── package.json
+├── Front-end/
+│   ├── public/
+│   ├── src/
+│   │   ├── components/
+│   │   │   └── ui/
+│   │   ├── lib/
+│   │   ├── service/
+│   │   ├── App.tsx
+│   │   ├── index.css
+│   │   └── main.tsx
+│   ├── .env.example
+│   └── package.json
+├── .gitignore
+├── package.json
+└── README.md
+```
 
-O front-end e o back-end ja fazem parte do mesmo projeto. Na pasta principal,
-instale o comando que inicia os dois servicos e as dependencias de cada parte:
+## Modelos do banco
+
+O projeto separa contas de acesso dos usuários administrados pelo CRUD.
+
+### `Account`
+
+Armazena as contas autorizadas a entrar no sistema:
+
+- Nome
+- E-mail
+- Hash da senha
+- Data de criação
+- Data de atualização
+
+### `User`
+
+Armazena os usuários fictícios cadastrados no painel:
+
+- Nome
+- E-mail
+- Idade
+- Data de criação
+- Data de atualização
+
+O acesso demonstrativo gera uma sessão temporária e não cria um registro em `Account`.
+
+## Como executar
+
+### Requisitos
+
+Antes de começar, tenha instalado:
+
+- Node.js 20 ou superior
+- npm
+- Uma conexão com MongoDB
+- Git
+
+### 1. Clone o repositório
+
+```bash
+git clone https://github.com/CauaRodolpho/authflow-fullstack.git
+cd authflow-fullstack
+```
+
+### 2. Instale as dependências
+
+Na pasta principal:
 
 ```bash
 npm install
 npm run install:all
 ```
 
-Crie o arquivo `Backend/.env` usando `Backend/.env.example` como modelo e
-adicione a sua conexao do MongoDB. Em seguida, prepare o Prisma:
+### 3. Configure o back-end
+
+Copie o arquivo de exemplo:
+
+#### Windows
 
 ```bash
-npm run prisma:generate
-npm run prisma:push
+copy Backend\.env.example Backend\.env
 ```
 
-Para iniciar o front-end e o back-end juntos:
+#### Linux ou macOS
 
 ```bash
-npm run dev
+cp Backend/.env.example Backend/.env
 ```
 
-- Front-end: `http://localhost:5173`
-- Back-end: `http://localhost:3000`
-- Verificacao da API: `http://localhost:3000/health`
-
-O `JWT_SECRET` do arquivo `Backend/.env` deve possuir pelo menos 32 caracteres.
-
-Os comandos separados continuam disponiveis com `npm run dev:frontend` e
-`npm run dev:backend`.
-
-### Back-end
-
-Entre na pasta do servidor e instale as dependencias:
-
-```bash
-cd Backend
-npm install
-```
-
-Copie `.env.example` para `.env` e preencha a conexao MongoDB:
+Abra `Backend/.env` e configure:
 
 ```env
-DATABASE_URL="sua_conexao_mongodb"
+DATABASE_URL="mongodb+srv://USUARIO:SENHA@CLUSTER.mongodb.net/authflow?retryWrites=true&w=majority"
 PORT=3000
 CORS_ORIGIN="http://localhost:5173"
-JWT_SECRET="uma-chave-segura-com-pelo-menos-32-caracteres"
+JWT_SECRET="adicione-uma-chave-secreta-com-pelo-menos-32-caracteres"
 ```
 
-Prepare o Prisma e inicie a API:
+O `JWT_SECRET` pode ser gerado com:
+
+```bash
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+```
+
+> Nunca envie o arquivo `.env` ao GitHub.
+
+### 4. Prepare o Prisma
 
 ```bash
 npm run prisma:generate
 npm run prisma:push
+```
+
+### 5. Inicie o projeto
+
+```bash
 npm run dev
 ```
 
-A verificacao da API fica disponivel em `http://localhost:3000/health`.
+Endereços locais:
 
-### Front-end
+- Front-end: `http://localhost:5173`
+- API: `http://localhost:3000`
+- Verificação da API: `http://localhost:3000/health`
 
-Em outro terminal:
+## Comandos disponíveis
+
+| Comando | Função |
+| --- | --- |
+| `npm run dev` | Inicia front-end e back-end |
+| `npm run dev:frontend` | Inicia somente o front-end |
+| `npm run dev:backend` | Inicia somente o back-end |
+| `npm run build` | Gera o build do front-end |
+| `npm run lint` | Executa a análise do front-end |
+| `npm run prisma:generate` | Gera o Prisma Client |
+| `npm run prisma:push` | Sincroniza o schema com o banco |
+| `npm run prisma:studio` | Abre o Prisma Studio |
+
+## Endpoints
+
+### Autenticação
+
+| Método | Rota | Função |
+| --- | --- | --- |
+| `POST` | `/auth/register` | Cria uma conta |
+| `POST` | `/auth/login` | Autentica uma conta |
+| `POST` | `/auth/demo` | Gera uma sessão demonstrativa |
+
+### Usuários
+
+As rotas abaixo exigem um token JWT:
+
+| Método | Rota | Função |
+| --- | --- | --- |
+| `POST` | `/usuarios` | Cadastra um usuário |
+| `GET` | `/usuarios` | Lista ou pesquisa usuários |
+| `GET` | `/usuarios/:id` | Busca um usuário |
+| `PUT` | `/usuarios/:id` | Atualiza um usuário |
+| `DELETE` | `/usuarios/:id` | Exclui um usuário |
+
+### Sistema
+
+| Método | Rota | Função |
+| --- | --- | --- |
+| `GET` | `/health` | Verifica o funcionamento da API |
+
+## Segurança
+
+- Senhas armazenadas somente como hash bcrypt
+- Tokens JWT assinados no back-end
+- Rotas do CRUD protegidas
+- Validação de entrada com Zod
+- Hashes de senha nunca são enviados ao navegador
+- Respostas de autenticação utilizam `Cache-Control: no-store`
+- CORS configurável por variável de ambiente
+- Arquivos `.env` ignorados pelo Git
+- Cabeçalho `x-powered-by` desabilitado
+
+Este projeto apresenta fundamentos de segurança para fins educacionais. Antes de utilizá-lo em produção, seriam necessárias medidas adicionais, como rate limiting, cookies `httpOnly`, recuperação de senha e testes automatizados.
+
+## Solução de problemas no Windows
+
+### Tailwind sem estilização
+
+O PostCSS deve permanecer neste caminho:
+
+```text
+Front-end/postcss.config.cjs
+```
+
+Se o Vite mantiver um cache antigo:
 
 ```bash
 cd Front-end
-npm install
-npm run dev
+rmdir /s /q node_modules\.vite
+npm run dev -- --force
 ```
 
-Opcionalmente, copie `.env.example` para `.env` se precisar alterar a URL da API.
+### CSS antigo no Brave
 
-## Endpoints atuais
+Desative o Brave Shields para:
 
-| Metodo | Rota | Funcao |
-| --- | --- | --- |
-| GET | `/health` | Verifica a API |
-| POST | `/auth/register` | Cria uma conta e retorna um token |
-| POST | `/auth/login` | Autentica e retorna um token |
-| POST | `/auth/demo` | Libera o acesso demonstrativo |
-| POST | `/usuarios` | Cadastra um usuario ficticio |
-| GET | `/usuarios` | Lista ou filtra usuarios |
-| GET | `/usuarios/:id` | Busca um usuario |
-| PUT | `/usuarios/:id` | Atualiza um usuario |
-| DELETE | `/usuarios/:id` | Exclui um usuario |
+```text
+localhost:5173
+```
 
-## Seguranca
+Ou atualize com:
 
-- Arquivos `.env` nao devem ser enviados ao GitHub.
-- Nunca use senhas, emails ou dados pessoais reais neste projeto demonstrativo.
-- As senhas das contas sao armazenadas somente como hash bcrypt.
-- As rotas de usuarios exigem um token JWT valido, inclusive no acesso demo.
-- Respostas de autenticacao usam `Cache-Control: no-store`.
-- O navegador nunca recebe o hash da senha.
+```text
+Ctrl + F5
+```
 
-## Uso demonstrativo
+### Prisma não encontra `DATABASE_URL`
 
-Na tela inicial, `Acessar demonstracao` cria uma sessao temporaria sem exigir
-cadastro. Contas de acesso ficam separadas dos usuarios ficticios gerenciados
-no painel.
+Confirme que o arquivo existe em:
 
-## Solucao de problemas no Windows
+```text
+Backend/.env
+```
 
-- Use apenas `npm run dev` na raiz; nao use `npm run dev all`.
-- O PostCSS deve permanecer em `Front-end/postcss.config.cjs`.
-- Se o Brave mantiver CSS antigo, desative o Shields para `localhost:5173` ou
-  use `Ctrl + F5`.
+Depois execute novamente:
 
-## Melhorias futuras opcionais
+```bash
+npm run prisma:generate
+npm run prisma:push
+```
+
+## Melhorias futuras
 
 - Controle de acesso por perfil
-- Historico de acessos ficticios
-- Recuperacao de senha por email
+- Recuperação de senha
+- Histórico de acessos
+- Paginação de usuários
+- Testes automatizados
+- Autenticação por cookies `httpOnly`
+- Rate limiting no back-end
+
+## Autor
+
+Desenvolvido por **Cauã Rodolpho**.
+
+- [GitHub](https://github.com/CauaRodolpho)
+- [LinkedIn](https://www.linkedin.com/in/cau%C3%A3-rodolpho/)
+
+## Licença
+
+Este projeto utiliza a licença ISC.
